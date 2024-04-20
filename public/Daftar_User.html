@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="boostrap/css/bootstrap.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <title>Daftar Katalis</title>
+  </head>
+  <body class="body">
+
+  <!-- Navbar  -->
+    <nav class="navbar navbar-expand-md fixed-top">
+     
+      <div class="navbar-collapse collapse" id="navbarNav">
+        <div class="container-nav">
+          <div class="input-1">
+            <input type="text" id="searchInput" placeholder="Search...">
+          </div>
+           <div class="cari-but">
+            <button id="searchButton">Cari</button>
+           </div>
+        </div>
+        <ul id="results"></ul>
+        <div class = "profill">
+            <div class ="gambar"></div>
+            <div class="name">
+                <p>Novanda</p>
+            </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+  <div class = "sidebar">
+    <div class = "profil"></div> 
+    <div class = "Textname">
+        <h3>Admin</h3>
+        <h4>Novanda</h4>
+    </div>  
+    <div class = "menu">
+        <ul>
+            <li> <p><a href="index.html">Dasboard</a></p></li>
+            <li><p><a href="Daftar_Hotel.html">Daftar Hotel</a></p></li>
+            <li><p><a href="Daftar_Katalis.html">Daftar Katalis</a></p></li>
+            <li><p><a href="Laporan_Transaksi.html">Laporan Transaksi</a></p></li>
+            <li><p><a href="Daftar_User.html">Daftar User</a></p></li>
+            
+        </ul>
+    </div>
+    <div class = "logout">
+                    <ul>
+                        <li> <p><a href="Dasboard.html">Logout</a></p></li>
+                    </ul>
+                </div>  
+</div>
+    </nav>
+  
+ 
+    
+  <!-- Content -->
+    <div class="content">
+      <div class="containe" style="margin-bottom: 10px;">
+        <div class="row">
+          <div class="col">
+            <h2>Daftar User</h2>
+          </div>
+          <!-- <div class="col-auto">
+            <button class="btn-custom" style="border-radius: 10px;" data-bs-toggle="modal" data-bs-target="#modalTambah">Tambah</button>
+          </div> -->
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table id="tabelData" class="table table-bordered table-hover" style="border: 2px solid #000000">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>No Telpon</th>
+                    <th>Alamat</th>
+                    <th>Jarak</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody id="data">
+                
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+  <!-- Tambah modal -->
+    <!-- <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Katalis</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label>Gambar:</label>
+                  <input type="image" class="form-control" id="img" placeholder="Gambar">
+                </div>
+                <div class="form-group">
+                  <label>Nama Katalis:</label>
+                  <input type="text" class="form-control" id="namaKatalis" placeholder="Masukkan Nama katalis">
+                </div>
+                <div class="form-group">
+                  <label>Stok Katalis:</label>
+                  <input type="text" class="form-control" id="stok" placeholder="Masukkan Stok">
+                </div>
+                <div class="form-group">
+                  <label>Komposisi:</label>
+                  <input type="text" class="form-control" id="komposisi" placeholder="Masukkan Komposisi">
+                </div>
+                <div class="form-group">
+                  <label>Harga:</label>
+                  <input type="number" class="form-control" id="harga" placeholder="Masukkan Harga Awal">
+                </div>
+                <div class="form-group">
+                  <label>Gram Per Porsi:</label>
+                  <input type="text" class="form-control" id="gramPerPorsi" placeholder="Masukkan Gram Per Porsi">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="tambahData">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>   -->
+
+  <!-- Edit modal -->
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Katalis</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="id">
+              <form>
+                
+                <div class="form-group">
+                  <label>Jarak</label>
+                  <input type="text" class="form-control" id="Jarak_tempuh" placeholder="masukan Jarak">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="updateData">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+    
+    <script>
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCXZOpejbtVBD01z6n_E0cVqRsATq1xTws",
+        authDomain: "nofwa-indonesia.firebaseapp.com",
+        projectId: "nofwa-indonesia",
+        storageBucket: "nofwa-indonesia.appspot.com",
+        messagingSenderId: "608371446284",
+        appId: "1:608371446284:web:5c15b701371d2390599429",
+        measurementId: "G-WJSVLG5HW5"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      const db = firebase.firestore();
+
+      db.collection("Customer").onSnapshot(snapshot =>{
+        snapshot.docChanges();
+        getData();
+      })
+
+      async function getData() {
+        document.getElementById('data').innerHTML = '';
+        const Admin = await db.collection("Customer").get();
+        Admin.docs.forEach((kts, i) => {
+          console.log(kts.id);
+          const harga = parseInt(kts.data().harga);
+          document.getElementById('data').innerHTML += `
+            <tr> 
+              <td>${i+1}</td>
+              <td>${kts.data().nama}</td> 
+              <td>${kts.data().noTlp}</td>
+              <td>${kts.data().alamat}</td> 
+              <td>${kts.data().jarak}</td> 
+              <td class="button-container">
+                <button class="btn btn-warning editData mb-2" data-id="${kts.id}" data-bs-toggle="modal" data-bs-target="#modalUpdate">Edit</button>
+                
+              </td>
+            </tr>
+          `;
+        });
+      }
+
+      document.getElementById('updateData').addEventListener('click', function(){
+
+        let harga_updateChecer;
+
+        // if (isNaN(parseInt(document.getElementById('harga_update').value))) harga_updateChecer = 0;
+        // else harga_updateChecer = parseInt(document.getElementById('harga_update').value);
+
+        db.collection("Customer").doc(document.getElementById('id').value).update({
+        
+          jarak: document.getElementById('Jarak_tempuh').value,
+          // komposisi: document.getElementById('komposisi_update').value,
+          // harga: harga_updateChecer,
+          // gramPerPorsi: document.getElementById('gramPerPorsi_update').value
+        }).then(() => {
+            console.log("Document successfully updated!");
+            var modal = document.getElementById('modalUpdate');
+            var modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+        }).catch((error) => {
+            console.error("Error updating document: ", error);
+        });
+      })
+
+      document.getElementById('data').addEventListener('click', function(e) {
+        const id = e.target.dataset.id;
+        if (e.target.classList.contains('hapusData')) {
+          db.collection("Customer").doc(id).delete().then(() => {
+              console.log("Document successfully deleted!");
+            }).catch((error) => {
+              console.error("Error removing document: ", error);
+            });
+          }
+
+        if (e.target.classList.contains('editData')) {
+            db.collection("Customer").doc(id).get().then((doc) => {
+              if (doc.exists) {
+                console.log(doc.data());
+                document.getElementById('id').value = doc.id;
+               
+                document.getElementById('Jarak_tempuh').value = doc.data().jarak; 
+                // document.getElementById('komposisi_update').value = doc.data().komposisi; 
+                // document.getElementById('harga_update').value = parseInt(doc.data().harga); 
+                // document.getElementById('gramPerPorsi_update').value = doc.data().gramPerPorsi; 
+              } else {
+                  console.log("No such document!");
+                }
+            });
+          }
+        })
+
+      // document.getElementById('tambahData').addEventListener('click', function(){ 
+
+      //   let hargaChecer;
+
+      //   if (isNaN(parseInt(document.getElementById('harga').value))) hargaChecer = 0;
+      //   else hargaChecer = parseInt(document.getElementById('harga').value);
+
+      //   db.collection("Katalis").add({
+      //     img: document.getElementById('img').value,
+      //     namaKatalis: document.getElementById('namaKatalis').value,
+      //     stok: document.getElementById('stok').value,
+      //     komposisi: document.getElementById('komposisi').value,
+      //     harga: hargaChecer,
+      //     gramPerPorsi: document.getElementById('gramPerPorsi').value
+      //   })
+      //   .then((docRef) => {
+      //     console.log("Document written with ID: ", docRef.id);
+          
+      //     document.getElementById('img').value = '';
+      //     document.getElementById('namaKatalis').value = '';
+      //     document.getElementById('stok').value = '';
+      //     document.getElementById('komposisi').value = '';
+      //     document.getElementById('harga').value = '';
+      //     document.getElementById('gramPerPorsi').value = '';
+
+      //     var modal = document.getElementById('modalTambah');
+      //     var modalInstance = bootstrap.Modal.getInstance(modal);
+      //     modalInstance.hide();
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error adding document: ", error);
+      //   });
+      // })
+    </script>
+  <script src="boostrap/js/bootstrap.js"></script>
+  </body>
+</html>

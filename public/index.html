@@ -4,54 +4,69 @@
         <meta charset="utf-8">
         <meta name="deskripsi" name="html dasar">
         <title>Dasboard</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="boostrap/css/bootstrap.css">
         <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
         <script src="/__/firebase/10.11.0/firebase-storage-compat.js"></script>
     </head>
-<body>
-    <div class = "navbar">
-        <div class="container">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button id="searchButton">Cari</button>
-        </div>
-        <ul id="results"></ul>
-        <div class = "profill">
-            <div class ="gambar"></div>
-            <div class="name">
-                <p>Novanda</p>
-            </div>
-        </div>
-    </div>
-    <div class = "Content-sidebar">
-        <div class = "sidebar">
+<body class="body">
+    <nav class="navbar navbar-expand-md fixed-top">
+     
+                <div class="navbar-collapse collapse" id="navbarNav">
+                <div class="container-nav">
+                    <div class="input-1">
+                    <input type="text" id="searchInput" placeholder="Search...">
+                    </div>
+                    <div class="cari-but">
+                    <button id="searchButton">Cari</button>
+                    </div>
+                </div>
+                <ul id="results"></ul>
+                <div class = "profill">
+                    <div class ="gambar"></div>
+                    <div class="name">
+                        <p>Novanda</p>
+                    </div>
+                </div>
+                </div>
+        
+                <!-- Sidebar -->
+            <div class = "sidebar">
             <div class = "profil"></div> 
             <div class = "Textname">
                 <h3>Admin</h3>
-                 <h4>Novanda</h4>
+                <h4>Novanda</h4>
             </div>  
             <div class = "menu">
-                 <ul>
-                    <li> <p><a href="index.html">Dasboard</a></p></li>
-                    <li><p><a href="Daftar_Berkas.html">Daftar Berkas</a></p></li>
-                    <li><p><a href="Dasboard.html">Daftar Katalis</a></p></li>
-                    <li><p><a href="Laporan.html">Laporan</a></p></li>
-                 </ul>
-            </div> 
-            <div class = "logout">
                 <ul>
-                    <li> <p><a href="Dasboard.html">Logout</a></p></li>
+                    <li> <p><a href="index.html">Dasboard</a></p></li>
+                    <li><p><a href="Daftar_Hotel.html">Daftar Hotel</a></p></li>
+                    <li><p><a href="Daftar_Katalis.html">Daftar Katalis</a></p></li>
+                    <li><p><a href="Laporan_Transaksi.html">Laporan Transaksi</a></p></li>
+                    <li><p><a href="Daftar_User.html">Daftar User</a></p></li>
+                    
                 </ul>
-            </div>  
-        </div>
+            </div>
+            <div class = "logout">
+                            <ul>
+                                <li> <p><a href="login_Admin.html">Logout</a></p></li>
+                            </ul>
+                        </div>  
+            </div>
+    </nav>
 
-        <div class = "content">
-             <h1>Selamat Datang Novanda</h1>
-             <h3>Halaman Dasboard Kosong...</h3>
-             <!-- <img id="get-image-from-firebase-storage" width="200" height="150"> -->
-        </div>
-    </div>
+        <!-- Content -->
+        <div class="Content">
+            <div class="kotak">
+              <h2>Selamat Datang Novanda</h2>
+              <h6>Halaman Dasboard Sedang Kosong ...</h6>
+            </div>
+          </div>
+           
+      
+    
     
     <script type="module">
         // Your web app's Firebase configuration
@@ -75,5 +90,6 @@
         })
   
       </script>
-</body>
+       <script src="boostrap/js/bootstrap.js"></script>
 </html>
+</body>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Index.css">
+    <link rel="stylesheet" href="boostrap/css/bootstrap.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <title>Login</title>
+</head>
+<body style="background-color: #862B0D; overflow: hidden;">
+    
+    <div class="login-form" style="background-color:#FFF9C9; border-radius: 15px;">
+        <form style="background-color:#FFF9C9;">
+            <h1 class="text-center">Login</h1>
+            <h5><span class="text-start" style="font-weight: bolder;">Selamat Datang,</span><br>Silahkan Login Dengan Akun Hotel Anda</h5>
+            <div class="form-group d-grid gap-2" style="padding-top: 170px;">  
+                <button type="button" id="login-hotel" class="btn-custom">
+                    Admin Sign in with Google
+                </button>
+            </div>              
+        </form>     
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCXZOpejbtVBD01z6n_E0cVqRsATq1xTws",
+            authDomain: "nofwa-indonesia.firebaseapp.com",
+            projectId: "nofwa-indonesia",
+            storageBucket: "nofwa-indonesia.appspot.com",
+            messagingSenderId: "608371446284",
+            appId: "1:608371446284:web:5c15b701371d2390599429",
+            measurementId: "G-WJSVLG5HW5"
+        };
+    
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        // Mendefinisikan provider autentikasi Google
+        const provider = new firebase.auth.GoogleAuthProvider();
+    
+        // Mendengarkan klik tombol login-hotel
+        document.getElementById('login-hotel').addEventListener('click', (e) => {
+            // Membuka popup untuk autentikasi dengan Google
+            firebase.auth().signInWithPopup(provider).then((result) => {
+                // Mendapatkan informasi pengguna setelah berhasil masuk
+                var user = result.user;
+                console.log("User successfully logged in:", user);
+    
+                // Pemeriksaan apakah pengguna sudah terdaftar di koleksi hotel
+                const adminCollection = firebase.firestore().collection("Admin");
+                const userRef = adminCollection.doc(user.uid);
+                userRef.get().then((doc) => {
+                    if (doc.exists) window.location.href = "Dasboard.html"; 
+                    else console.log("You are not admin!");
+                }).catch((error) => {
+                    console.error("Error checking admin user:", error);
+                });
+            }).catch((error) => {
+                // Penanganan kesalahan jika ada kesalahan dalam proses masuk
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.error("Error signing in:", errorMessage);
+            });
+        });
+    </script>
+    
+    
+
+    <script src="boostrap/js/bootstrap.js"></script>                                          
+</body>
+</html>
