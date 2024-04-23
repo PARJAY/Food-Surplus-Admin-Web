@@ -1,178 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="deskripsi" name="html dasar">
-        <title>Laporan</title>
-        <link rel="stylesheet" href="Style.css">
-        <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>                                         
-    </head>
-<body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="boostrap/css/bootstrap.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+  <body class="body">
 
-    <div class = "navbar">
-        <div class="container">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button id="searchButton">Cari</button>
+  <!-- Navbar  -->
+<nav class="navbar navbar-expand-md fixed-top">
+
+    <div class="navbar-collapse collapse" id="navbarNav">
+        <div class="container-nav">
+            <div class="input-1">
+                <input type="text" id="searchInput" placeholder="Search...">
+            </div>
+            <div class="cari-but">
+                <button id="searchButton">Cari</button>
+            </div>
         </div>
         <ul id="results"></ul>
-        <div class = "profill">
-            <div class ="gambar"></div>
+        <div class="profill">
+            <div class="gambar"></div>
             <div class="name">
                 <p>Novanda</p>
             </div>
         </div>
     </div>
 
-    <div class = "Content-sidebar">
-        <div class = "sidebar">
-            <div class = "profil"></div> 
-            <div class = "Textname">
-                <h3>Admin</h3>
-                 <h4>Novanda</h4>
-            </div>  
-            <div class = "menu">
-                 <ul>
-                    <li> <p><a href="index.html">Dasboard</a></p></li>
-                    <li><p><a href="Daftar_Hotel.html">Daftar Hotel</a></p></li>
-                    <li><p><a href="Daftar_Katalis.html">Daftar Katalis</a></p></li>
-                    <li><p><a href="Laporan_Transaksi.html">Laporan Transaksi</a></p></li>
-                    <li><p><a href="Daftar_User.html">Daftar User</a></p></li>
-                 </ul>
-            </div> 
-            <div class = "logout">
-                <ul>
-                    <li> <p><a href="Dasboard.html">Logout</a></p></li>
-                </ul>
-            </div> 
-         
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="profil"></div>
+        <div class="Textname">
+            <h3>Admin</h3>
+            <h4>Novanda</h4>
         </div>
-
-        <div class = "conten">
-             <h1>Daftar Laporan</h1>
-             <table>
-                <thead>
-                     <tr>
-                        <th>Id</th>
-                        <th>Nama</th>
-                        <th>Alamat</th>
-                        <th>Menu </th>
-                        <th>Jumlah</th>
-                        <th>Harga</th>
-                        <th>Total Harga</th>
-                     </tr>
-                 </thead>
-                 <tbody id="Data">
-                     
-                 </tbody>
-        </table>
+        <div class="menu">
+            <ul>
+                <li> <p><a href="index.html">Dasboard</a></p></li>
+                <li><p><a href="Daftar_Hotel.html">Daftar Hotel</a></p></li>
+                <li><p><a href="Daftar_Katalis.html">Daftar Katalis</a></p></li>
+                <li><p><a href="Laporan_Transaksi.html">History Transaksi</a></p></li>
+                <li><p><a href="Daftar_User.html">Daftar User</a></p></li>
+            </ul>
+        </div>
+        <div class="logout">
+            <ul>
+                <li> <p><a href="login_Admin.html">Logout</a></p></li>
+            </ul>
         </div>
     </div>
+</nav>
+    
+  <!-- Content -->
+    <div class="content">
+      <div class="containe" style="margin-bottom: 10px;">
+        <div class="row">
+          <div class="col">
+            <h2>History Transaksi</h2>
+          </div>
+          <div class="col-auto">
+            
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table id="tabelData" class="table table-bordered table-hover" style="border: 2px solid #000000">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Id Hotel</th>
+                    <th>Keuntungan</th>
+                    <th>Waktu Transaksi</th>
+                 
+                  </tr>
+            </thead>
+            <tbody id="data">
+                
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+  <!-- Tambah modal -->
+    <!-- <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Transaksi</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label>Keuntungan:</label>
+                  <input type="number" class="form-control" id="keuntungan" placeholder="Masukkan Keuntungan">
+                </div>
+                <div class="form-group">
+                  <label>Waktu Transaksi:</label>
+                  <input type="text" class="form-control" id="waktuTransaksi" placeholder="Masukkan waktuTransaksi">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="tambahData">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>   -->
+
+  <!-- Edit modal -->
+    <!-- <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Transaksi</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="id">
+              <form>
+                <div class="form-group">
+                  <label>Keuntungan:</label>
+                  <input type="number" class="form-control" id="keuntungan_update" placeholder="Masukkan Keuntungan">
+                </div>
+                <div class="form-group">
+                  <label>Waktu Transaksi:</label>
+                  <input type="text" class="form-control" id="waktuTransaksi_update" placeholder="Masukkan waktuTransaksi">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="updateData">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>   -->
+
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyCXZOpejbtVBD01z6n_E0cVqRsATq1xTws",
-            authDomain: "nofwa-indonesia.firebaseapp.com",
-            projectId: "nofwa-indonesia",
-            storageBucket: "nofwa-indonesia.appspot.com",
-            messagingSenderId: "608371446284",
-            appId: "1:608371446284:web:5c15b701371d2390599429",
-            measurementId: "G-WJSVLG5HW5"
-        };
-    
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        function renderData(doc) {
-            const data = doc.data();
 
-            let tr = document.createElement('tr');
-            let tdId = document.createElement('td');
-            let tdNama = document.createElement('td');
-            let tdAlamat = document.createElement('td');
-            let tdMenu = document.createElement('td');
-            let tdJumlah = document.createElement('td');
-            let tdHarga = document.createElement('td');
-            let tdTotalHarga = document.createElement('td');
-          
-            tr.setAttribute('data-id', doc.id)
+      const firebaseConfig = {
+        apiKey: "AIzaSyCXZOpejbtVBD01z6n_E0cVqRsATq1xTws",
+        authDomain: "nofwa-indonesia.firebaseapp.com",
+        projectId: "nofwa-indonesia",
+        storageBucket: "nofwa-indonesia.appspot.com",
+        messagingSenderId: "608371446284",
+        appId: "1:608371446284:web:5c15b701371d2390599429",
+        measurementId: "G-WJSVLG5HW5"
+      };
 
-            tdId.setAttribute("data-value", "tdId")
-            tdNama .setAttribute("data-value", "tdNama ")
-            tdAlamat.setAttribute("data-value", "tdAlamat")
-            tdMenu.setAttribute("data-value", "tdMenu")
-            tdJumlah.setAttribute("data-value", "tdJumlah")
-            tdHarga.setAttribute("data-value", "tdHarga")
-            tdTotalHarga.setAttribute("data-value", "tdTotalHarga")
-            
-            tdId.textContent = data.id
-            tdNama.textContent = data.nama
-            tdAlamat.textContent = data.alamat
-            tdMenu.textContent = data.menu
-            tdJumlah.textContent = data.jumlah
-            tdHarga.textContent = data.harga
-            tdTotalHarga.textContent = data.totalHarga
+      firebase.initializeApp(firebaseConfig);
 
-            tr.appendChild(tdId)
-            tr.appendChild(tdNama)
-            tr.appendChild(tdAlamat)
-            tr.appendChild(tdMenu)
-            tr.appendChild(tdJumlah)
-            tr.appendChild(tdHarga)
-            tr.appendChild(tdTotalHarga)
+      const db = firebase.firestore();
 
+      db.collection("Transaksi_Hotel Dummy_1").onSnapshot(snapshot =>{
+        snapshot.docChanges();
+        getData();
+      })
 
-            document.getElementById('Data').appendChild(tr)
-        }
+      async function getData() {
+        document.getElementById('data').innerHTML = '';
+        const Admin = await db.collection("Transaksi_Hotel Dummy_1").get();
+        Admin.docs.forEach((tsk, i) => {
+          console.log(tsk.id);
+          const harga = parseInt(tsk.data().harga);
+          document.getElementById('data').innerHTML += `
+            <tr> 
+              <td>${i+1}</td> 
+              <td>12345</td>
+              <td>${tsk.data().keuntungan}</td>
+              <td>${tsk.data().waktuTransaksi}</td> 
+            </tr>
+          `;
+        });
+      }
 
-        function updateDataInTableItem(targetedElement, updatedData) {
-        
-            let tdId = targetedElement.children[0]
-            let tdNama = targetedElement.children[1]
-            let tdAlamat = targetedElement.children[2]
-            let tdMenu = targetedElement.children[3]
-            let tdJumlah = targetedElement.children[4]
-            let tdHarga = targetedElement.children[5]
-            let tdTotalHarga = targetedElement.children[6]
-            
+      // document.getElementById('updateData').addEventListener('click', function(){
 
-            tdId.textContent = updatedData.id
-            tdNama.textContent = updatedData.nama
-            tdAlamat.textContent = updatedData.alamat
-            tdMenu.textContent = updatedData.menu
-            tdJumlah.textContent = updatedData.jumlah
-            tdHarga.textContent = updatedData.harga
-            tdTotalHarga.textContent = updatedData.totalHarga
-        }
-  
-        function removeData(doc) {
-            const id = doc.id;
-            const dataElement = document.querySelector(`[data-id="${id}"]`);
-            dataElement.remove();
-        }
-  
-        function listenToData() {
-            db.collection("TransaksiAdmin").onSnapshot(snapshot => {
-                let changes = snapshot.docChanges();
-                console.log(changes)
-                snapshot.docChanges().forEach(change => {
-                    if (change.type === "added") {
-                        renderData(change.doc);
-                    }
-                    if (change.type == 'modified' ) {
-                        let tr = document.querySelector(`[data-id="${change.doc.id}"]`);
-                        console.log(tr)
-                        if (tr) updateDataInTableItem(tr, change.doc.data());
-                    }
-                    if (change.type === "removed") {
-                        removeData(change.doc);
-                    }
-                });
+      //   let keuntungan_updateChecer;
+
+      //   if (isNaN(parseInt(document.getElementById('keuntungan_update').value))) keuntungan_updateChecer = 0;
+      //   else keuntungan_updateChecer = parseInt(document.getElementById('keuntungan_update').value);
+
+      //   db.collection("Transaksi_Hotel Dummy_1").doc(document.getElementById('id').value).update({
+      //     keuntungan: keuntungan_updateChecer,
+      //     waktuTransaksi: document.getElementById('waktuTransaksi_update').value,
+      //   }).then(() => {
+      //       console.log("Document successfully updated!");
+      //       var modal = document.getElementById('modalUpdate');
+      //       var modalInstance = bootstrap.Modal.getInstance(modal);
+      //       modalInstance.hide();
+      //   }).catch((error) => {
+      //       console.error("Error updating document: ", error);
+      //   });
+      // })
+
+      document.getElementById('data').addEventListener('click', function(e) {
+        const id = e.target.dataset.id;
+        if (e.target.classList.contains('hapusData')) {
+          db.collection("Transaksi_Hotel Dummy_1").doc(id).delete().then(() => {
+              console.log("Document successfully deleted!");
+            }).catch((error) => {
+              console.error("Error removing document: ", error);
             });
-        }
-  
-        listenToData();
-      </script>
-    
-</body>
+          }
 
+        if (e.target.classList.contains('editData')) {
+            db.collection("Transaksi_Hotel Dummy_1").doc(id).get().then((doc) => {
+              if (doc.exists) {
+                console.log(doc.data());
+                document.getElementById('id').value = doc.id;
+                document.getElementById('keuntungan_update').value =doc.data().keuntungan;
+                document.getElementById('waktuTransaksi_update').value =doc.data().waktuTransaksi;
+              } else {
+                console.log("No such document!");
+                }
+            });
+          }
+        })
+
+        // document.getElementById('tambahData').addEventListener('click', function(){ 
+
+        // let keuntunganChecer;
+
+        // if (isNaN(parseInt(document.getElementById('keuntungan').value))) keuntunganChecer = 0;
+        // else keuntunganChecer = parseInt(document.getElementById('keuntungan').value);
+
+        // db.collection("Transaksi_Hotel Dummy_1").add({
+        //   keuntungan: keuntunganChecer,
+        //   waktuTransaksi: document.getElementById('waktuTransaksi').value,
+        // })
+        //   .then((docRef) => {
+        //     console.log("Document written with ID: ", docRef.id);
+            
+        //     document.getElementById('keuntungan').value = '';
+        //     document.getElementById('waktuTransaksi').value = '';
+  
+        //     var modal = document.getElementById('modalTambah');
+        //     var modalInstance = bootstrap.Modal.getInstance(modal);
+        //     modalInstance.hide();
+        //   })
+        //   .catch((error) => {
+        //     console.error("Error adding document: ", error);
+        //   });
+        // })
+
+    </script>
+
+
+  <script src="boostrap/js/bootstrap.js"></script>
+
+  </body>
 </html>

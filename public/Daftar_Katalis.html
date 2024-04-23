@@ -3,195 +3,223 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
-    <link rel="stylesheet" href="Style.css">
-    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
-    <script defer src="/__/firebase/10.11.0/firebase-storage-compat.js"></script>
-    
-
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="boostrap/css/bootstrap.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <title>Daftar Katalis</title>
   </head>
-  <body>
-          <div class = "navbar">
-            <div class="container">
-                <input type="text" id="searchInput" placeholder="Search...">
-                <button id="searchButton">Cari</button>
-            </div>
-            <ul id="results"></ul>
-            <div class = "profill">
-                <div class ="gambar"></div>
-                <div class="name">
-                    <p>Novanda</p>
-                </div>
-            </div>
-        </div>
-        <div class = "Content-sidebar">
-            <div class = "sidebar">
-                <div class = "profil"></div> 
-                <div class = "Textname">
-                    <h3>Admin</h3>
-                    <h4>Novanda</h4>
-                </div>  
-                <div class = "menu">
-                    <ul>
-                        <li> <p><a href="index.html">Dasboard</a></p></li>
-                        <li><p><a href="Daftar_Hotel.html">Daftar Hotel</a></p></li>
-                        <li><p><a href="Daftar_Katalis.html">Daftar Katalis</a></p></li>
-                        <li><p><a href="Laporan_Transaksi.html">Laporan Transaksi</a></p></li>
-                        <li><p><a href="Daftar_User.html">Daftar User</a></p></li>
-                    </ul>
-                </div> 
-                <div class = "logout">
-                    <ul>
-                        <li> <p><a href="Dasboard.html">Logout</a></p></li>
-                    </ul>
-                </div> 
-            </div>
+  <body class="body">
 
-            <div class = "conten">
-                <h1>Daftar Katalis</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Gambar</th>
-                            <th>Id Hotel</th>
-                            <th>Nama Katalis</th>
-                            <th>Komposisi</th>
-                            <th>Harga Awal</th>
-                            <th>Harga Jual</th>
-                            <th>Porsi Jual</th>
-                            <th>Stok Katalis</th>
-                        </tr>
-                    </thead>
-                    <tbody id="Data">
-                       
-                    </tbody>
-            </table>
+  <!-- Navbar  -->
+  <nav class="navbar navbar-expand-md fixed-top">
+     
+    <div class="navbar-collapse collapse" id="navbarNav">
+      <div class="container-nav">
+        <div class="input-1">
+          <input type="text" id="searchInput" placeholder="Search...">
+        </div>
+         <div class="cari-but">
+          <button id="searchButton">Cari</button>
+         </div>
+      </div>
+      <ul id="results"></ul>
+      <div class = "profill">
+          <div class ="gambar"></div>
+          <div class="name">
+              <p>Novanda</p>
+          </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+<div class = "sidebar">
+  <div class = "profil"></div> 
+  <div class = "Textname">
+      <h3>Admin</h3>
+      <h4>Novanda</h4>
+  </div>  
+  <div class = "menu">
+      <ul>
+          <li> <p><a href="index.html">Dasboard</a></p></li>
+          <li><p><a href="Daftar_Hotel.html">Daftar Hotel</a></p></li>
+          <li><p><a href="Daftar_Katalis.html">Daftar Katalis</a></p></li>
+          <li><p><a href="Laporan_Transaksi.html">History Transaksi</a></p></li>
+          <li><p><a href="Daftar_User.html">Daftar User</a></p></li>
+          
+      </ul>
+  </div>
+  <div class = "logout">
+                  <ul>
+                      <li> <p><a href="login_Admin.html">Logout</a></p></li>
+                  </ul>
+              </div>  
+</div>
+  </nav>
+    
+  <!-- Content -->
+    <div class="content">
+      <div class="containe" style="margin-bottom: 10px;">
+        <div class="row">
+          <div class="col">
+            <h2>Daftar Katalis</h2>
+          </div>
+          <div class="col-auto">
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table id="tabelData" class="table table-bordered table-hover" style="border: 2px solid #000000">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Id Hotel</th>
+                    <th>Gambar</th>
+                    <th>Nama Katalis</th>
+                    <th>Stok Katalis</th>
+                    <th>Komposisi</th>
+                    <th>Harga</th>
+                    <th>Harga Admin</th>
+                    <th>Gram Per Porsi</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody id="data">
+                
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+  <!-- Edit modal -->
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Katalis</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="id">
+              <form>
+                <!-- Harga Admin -->
+                <div class="form-group">
+                    <label>Harga Admin:</label>
+                    <input type="number" class="form-control" id="harga_admin" placeholder="Masukkan Harga Admin">
+                </div>
+                   <!-- Harga Admin -->
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="updateData">Save changes</button>
             </div>
           </div>
+        </div>
+      </div>
+    </div>  
+    
+    <script>
 
-          <script>
-            const firebaseConfig = {
-                apiKey: "AIzaSyCXZOpejbtVBD01z6n_E0cVqRsATq1xTws",
-                authDomain: "nofwa-indonesia.firebaseapp.com",
-                projectId: "nofwa-indonesia",
-                storageBucket: "nofwa-indonesia.appspot.com",
-                messagingSenderId: "608371446284",
-                appId: "1:608371446284:web:5c15b701371d2390599429",
-                measurementId: "G-WJSVLG5HW5"
-            };
+      const firebaseConfig = {
+        apiKey: "AIzaSyCXZOpejbtVBD01z6n_E0cVqRsATq1xTws",
+        authDomain: "nofwa-indonesia.firebaseapp.com",
+        projectId: "nofwa-indonesia",
+        storageBucket: "nofwa-indonesia.appspot.com",
+        messagingSenderId: "608371446284",
+        appId: "1:608371446284:web:5c15b701371d2390599429",
+        measurementId: "G-WJSVLG5HW5"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      const db = firebase.firestore();
+        // firebase.initializeApp(firebaseConfig);
+      
+        let imageView = document.getElementById('get-image-from-firebase-storage');
+
+firebase.storage().ref('WhatsApp Image 2023-12-09 at 20.32.55.jpeg').getDownloadURL().then( imgUrl => {
+    // imageView.src = imgUrl;
+})
+
+      db.collection("Katalis").onSnapshot(snapshot =>{
+        snapshot.docChanges();
+        getData();
+      })
+
+      async function getData() {
         
-            firebase.initializeApp(firebaseConfig);
-            const db = firebase.firestore();
-            function renderData(doc) {
-                const data = doc.data();
+        document.getElementById('data').innerHTML = '';
+        const Admin = await db.collection("Katalis").get();
+        Admin.docs.forEach(async (kts, i) => {
+          console.log(kts.id);
+          const idHotel = kts.data().idHotel;
+          const harga = parseInt(kts.data().harga);
+          const hargaAdmin = parseInt(kts.data().hargaAdmin);
+          const imageUrl = await firebase.storage().ref(`Hotel_${idHotel}/${kts.data().katalisImageLink}`).getDownloadURL();
+          document.getElementById('data').innerHTML += `
+            <tr> 
+              <td>${i+1}</td>
+              <td>12345</td> 
+             <td><img src="${imageUrl}" id="imagePreview_${i}" width="80" height="80"></td>
+              <td>${kts.data().namaKatalis}</td>
+              <td>${kts.data().stok}</td> 
+              <td>${kts.data().komposisi}</td> 
+              <td>${kts.data().harga}</td>
+              <td>${kts.data().hargaAdmin}</td>
+              <td>${kts.data().gramPerPorsi}</td>
+              <td class="button-container">
+                <button class="btn btn-warning editData mb-2" data-id="${kts.id}" data-bs-toggle="modal" data-bs-target="#modalUpdate">Edit</button>
+              </td>
+            </tr>
+          `;
+      });
+      }
 
-                let tr = document.createElement('tr');
-                let imageViewTable = document.createElement('td');
-                let imageView = document.createElement('img');
-                
-
-                imageViewTable.appendChild(imageView)
-
-                let tdIdHotel = document.createElement('td');
-                let tdNamaKatalis = document.createElement('td');
-                let tdKomposisi = document.createElement('td');
-                let tdHargaAwal = document.createElement('td');
-                let tdHargaJual = document.createElement('td');
-                let tdPorsiJual = document.createElement('td');
-                let tdStok = document.createElement('td');
-              
-                tr.setAttribute('data-id', doc.id)
-
-                imageView.setAttribute("data-value", "get-image-from-firebase-storage")
-                tdIdHotel.setAttribute("data-value", "tdIdHotel")
-                tdNamaKatalis.setAttribute("data-value", "tdNamaKatalis")
-                tdKomposisi.setAttribute("data-value", "tdKomposisi")
-                tdHargaAwal.setAttribute("data-value", "tdHargaAwal")
-                tdHargaJual.setAttribute("data-value", "tdHargaJual")
-                tdPorsiJual.setAttribute("data-value", "tdPorsiJual")
-                tdStok.setAttribute("data-value", "tdStok")
-                
-                // firebase.storage().ref(`Hotel ${data.idHotel}/${data.katalisImageLink}`).getDownloadURL().then( imgUrl => {
-                //     imageView.src = imgUrl;
-                // })
-
-                // firebase.storage().ref('WhatsApp Image 2023-12-09 at 20.32.55.jpeg').getDownloadURL().then( imgUrl => {
-                //     imageView.src = imgUrl;
-                // })
-
-                tdIdHotel.textContent = data.idHotel
-                tdNamaKatalis.textContent = data.namaKatalis
-                tdKomposisi.textContent = data.komposisi
-                tdHargaAwal.textContent = data.hargaAwal
-                tdHargaJual.textContent = data.hargaJual
-                tdPorsiJual.textContent = data.porsiJual
-                tdStok.textContent = data.stok
+      document.getElementById('updateData').addEventListener('click', function(){
+        let harga_adminChecer;
+        if (isNaN(parseInt(document.getElementById('harga_admin').value))) harga_adminChecer = 0;
+        else harga_adminChecer = parseInt(document.getElementById('harga_admin').value);
 
 
-                tr.appendChild(imageViewTable)
-                tr.appendChild(tdIdHotel)
-                tr.appendChild(tdNamaKatalis)
-                tr.appendChild(tdKomposisi)
-                tr.appendChild(tdHargaAwal)
-                tr.appendChild(tdHargaJual)
-                tr.appendChild(tdPorsiJual)
-                tr.appendChild(tdStok)
+        db.collection("Katalis").doc(document.getElementById('id').value).update({
+          hargaAdmin: harga_adminChecer,
+        }).then(() => {
+            console.log("Document successfully updated!");
+            var modal = document.getElementById('modalUpdate');
+            var modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+        }).catch((error) => {
+            console.error("Error updating document: ", error);
+        });
+      })
 
+      document.getElementById('data').addEventListener('click', function(e) {
+        const id = e.target.dataset.id;
+        if (e.target.classList.contains('hapusData')) {
+          db.collection("Katalis").doc(id).delete().then(() => {
+              console.log("Document successfully deleted!");
+            }).catch((error) => {
+              console.error("Error removing document: ", error);
+            });
+          }
 
-                document.getElementById('Data').appendChild(tr)
-            }
-
-            function updateDataInTableItem(targetedElement, updatedData) {
-                let imageView = targetedElement.children[0].children[0]
-                let tdIdHotel = targetedElement.children[1]
-                let tdNamaKatalis = targetedElement.children[2]
-                let tdKomposisi = targetedElement.children[3]
-                let tdHargaAwal = targetedElement.children[4]
-                let tdHargaJual = targetedElement.children[5]
-                let tdPorsiJual = targetedElement.children[6]
-                let tdStok = targetedElement.children[7]
-                
-
-                // imageView.textContent = data.gambar
-                tdIdHotel.textContent = updatedData.idHotel
-                tdNamaKatalis.textContent = updatedData.namaKatalis
-                tdKomposisi.textContent = updatedData.komposisi
-                tdHargaAwal.textContent = updatedData.hargaAwal
-                tdHargaJual.textContent = updatedData.hargaJual
-                tdPorsiJual.textContent = updatedData.porsiJual
-                tdStok.textContent = updatedData.stok
-            }
-      
-            function removeData(doc) {
-                const id = doc.id;
-                const dataElement = document.querySelector(`[data-id="${id}"]`);
-                dataElement.remove();
-            }
-      
-            function listenToData() {
-                db.collection("Katalis").onSnapshot(snapshot => {
-                    let changes = snapshot.docChanges();
-                    console.log(changes)
-                    snapshot.docChanges().forEach(change => {
-                        if (change.type === "added") {
-                            renderData(change.doc);
-                        }
-                        if (change.type == 'modified' ) {
-                            let tr = document.querySelector(`[data-id="${change.doc.id}"]`);
-                            console.log(tr)
-                            if (tr) updateDataInTableItem(tr, change.doc.data());
-                        }
-                        if (change.type === "removed") {
-                            removeData(change.doc);
-                        }
-                    });
-                });
-            }
-      
-            listenToData();
-          </script>
+        if (e.target.classList.contains('editData')) {
+            db.collection("Katalis").doc(id).get().then((doc) => {
+              if (doc.exists) {
+                console.log(doc.data());
+                document.getElementById('id').value = doc.id;
+                document.getElementById('harga_admin').value = parseInt(doc.data().hargaAdmin);
+              } else {
+                  console.log("No such document!");
+                }
+            });
+          }
+        })
+    </script>
+  <script src="boostrap/js/bootstrap.js"></script>
   </body>
 </html>
-

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="boostrap/css/bootstrap.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <title>Daftar Katalis</title>
+  </head>
+  <body class="body">
+
+  <!-- Navbar  -->
+  <nav class="navbar navbar-expand-md fixed-top">
+     
+    <div class="navbar-collapse collapse" id="navbarNav">
+      <div class="container-nav">
+        <div class="input-1">
+          <input type="text" id="searchInput" placeholder="Search...">
+        </div>
+         <div class="cari-but">
+          <button id="searchButton">Cari</button>
+         </div>
+      </div>
+      <ul id="results"></ul>
+      <div class = "profill">
+          <div class ="gambar"></div>
+          <div class="name">
+              <p>Novanda</p>
+          </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+<div class = "sidebar">
+  <div class = "profil"></div> 
+  <div class = "Textname">
+      <h3>Admin</h3>
+      <h4>Novanda</h4>
+  </div>  
+  <div class = "menu">
+      <ul>
+          <li> <p><a href="index.html">Dasboard</a></p></li>
+          <li><p><a href="Daftar_Hotel.html">Daftar Hotel</a></p></li>
+          <li><p><a href="Daftar_Katalis.html">Daftar Katalis</a></p></li>
+          <li><p><a href="Laporan_Transaksi.html">History Transaksi</a></p></li>
+          <li><p><a href="Daftar_User.html">Daftar User</a></p></li>
+          
+      </ul>
+  </div>
+  <div class = "logout">
+                  <ul>
+                      <li> <p><a href="login_Admin.html">Logout</a></p></li>
+                  </ul>
+              </div>  
+</div>
+  </nav>
+    
+  <!-- Content -->
+    <div class="content">
+      <div class="containe" style="margin-bottom: 10px;">
+        <div class="row">
+          <div class="col">
+            <h2>Daftar Katalis</h2>
+          </div>
+          <div class="col-auto">
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table id="tabelData" class="table table-bordered table-hover" style="border: 2px solid #000000">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>gambar</th>
+                    <th>Id Customer</th>
+                    <th>Id Hotel</th>
+                    <th>Id Kurir</th>
+                    <th>Id Pesanan</th>
+                    <th>List Daftar Katalis</th>
+                    <th>Status Pesanan</th>
+                    <th>Waktu Pesanan</th>
+                    <th>Total Harga</th>
+                </tr>
+            </thead>
+            <tbody id="data">
+                
+            </tbody>
+        </table>
+    </div>
+    </div> 
+    
+    <script>
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCXZOpejbtVBD01z6n_E0cVqRsATq1xTws",
+        authDomain: "nofwa-indonesia.firebaseapp.com",
+        projectId: "nofwa-indonesia",
+        storageBucket: "nofwa-indonesia.appspot.com",
+        messagingSenderId: "608371446284",
+        appId: "1:608371446284:web:5c15b701371d2390599429",
+        measurementId: "G-WJSVLG5HW5"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      db.collection("Pesanan").onSnapshot(snapshot =>{
+        snapshot.docChanges();
+        getData();
+      })
+      db.collection("katalis").onSnapshot(snapshot =>{
+        snapshot.docChanges();
+        getData();
+      })
+
+      async function getData() {
+        
+        document.getElementById('data').innerHTML = '';
+        const Admin = await db.collection("Pesanan").get();
+        const admin = await db.collection("katalis").get();
+        Admin.docs.forEach(async(kts, i) => {
+          console.log(kts.id);
+        //   const idHotel = kts.data().idHotel;
+        //   const harga = parseInt(kts.data().harga);
+        //   const hargaAdmin = parseInt(kts.data().hargaAdmin);
+        //   const imageUrl = await firebase.storage().ref(`Hotel_${idHotel}/${kts.data().katalisImageLink}`).getDownloadURL();
+          document.getElementById('data').innerHTML += `
+            <tr> 
+              <td>${i+1}</td>
+             <td></td>
+              <td>${kts.data().id_customer}</td>
+              <td>${kts.data().id_hotel}</td> 
+              <td>${kts.data().id_kurir}</td> 
+              <td>${kts.data().id_pesanan}</td>
+              <td>${kts.data().list_daftar_katalis}</td>
+              <td>${kts.data().status_pesanan}</td>
+              <td>${kts.data().waktu_pesanan_dibuat}</td>
+              <td>${kts.data().total_harga}</td>
+            </tr>
+          `;
+        });
+      }
+
+     
+    </script>
+  <script src="boostrap/js/bootstrap.js"></script>
+  </body>
+</html>
