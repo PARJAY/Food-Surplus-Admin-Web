@@ -169,15 +169,11 @@
         let p = firebase.storage().ref(filename).getDownloadURL();
 
         firebase.storage().ref(filename).getDownloadURL().then(function(url) {
-            // This can be downloaded directly:
-            var xhr = new XMLHttpRequest();
-            xhr.responseType = 'blob';
-            xhr.onload = function(event) {
-              var blob = xhr.response;
-            };
-            xhr.open('GET', url);
-            xhr.send();
-          
+            console.log(`url : ${url}`)
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = filename; // Set the desired filename for download
+            link.click();
           }).catch(function(error) {
             // A full list of error codes is available at
             // https://firebase.google.com/docs/storage/web/handle-errors
