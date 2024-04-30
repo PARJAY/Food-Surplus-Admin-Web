@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="deskripsi" name="html dasar">
+        <title>Dasboard</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="boostrap/css/bootstrap.css">
+        <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+        <script src="/__/firebase/10.11.0/firebase-storage-compat.js"></script>
+    </head>
+<body class="body">
+    <nav class="box">
+        <!-- Sidebar -->
+        <div class="side_bar">
+            <div class="profil"></div>
+            <div class="Textname">
+                <h3>Admin</h3>
+                <h4>Novanda</h4>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li> <p><a href="index.html">Dasboard</a></p></li>
+                    <li><p><a href="Daftar_Hotel.html">Daftar Hotel</a></p></li>
+                    <li><p><a href="Daftar_Katalis.html">Daftar Katalis</a></p></li>
+                    <li><p><a href="Laporan_Transaksi.html">History Transaksi</a></p></li>
+                    <li><p><a href="Daftar_User.html">Daftar User</a></p></li>
+                </ul>
+            </div>
+            <div class="logout">
+                <ul>
+                    <li> <p><a href="Profil.html">Logout</a></p></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Content -->
+        <div class="Content">
+                <div class="box_judul">
+                        <div class="judul">
+                            <h1>PROFIL AKUN ANDA</h1>
+                        </div>
+                </div>
+           <div class="gambar_profil"></div>
+           <div class="input-grup">
+            <form>
+                <div class="input">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                </div>
+                <div class="input">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                </div>
+                <div class="input">
+                    <label for="message">Message:</label>
+                    <textarea class="form-control" id="message" rows="3" placeholder="Enter your message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        </div>
+           
+    </nav>
+    
+
+       <script src="boostrap/js/bootstrap.js"></script>
+</html>
+</body>

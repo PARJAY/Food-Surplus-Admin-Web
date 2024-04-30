@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="deskripsi" name="html dasar">
         <title>Dasboard</title>
-        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="Index.css">
         <link rel="stylesheet" href="boostrap/css/bootstrap.css">
         <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
@@ -14,47 +14,47 @@
 <body class="body">
     <nav class="navbar navbar-expand-md fixed-top">
      
-                <div class="navbar-collapse collapse" id="navbarNav">
-                <div class="container-nav">
-                    <div class="input-1">
+              
+        <div class="navbar-collapse collapse" id="navbarNav">
+            <!-- <div class="container-nav">
+                <div class="input-1">
                     <input type="text" id="searchInput" placeholder="Search...">
-                    </div>
-                    <div class="cari-but">
+                </div>
+                <div class="cari-but">
                     <button id="searchButton">Cari</button>
-                    </div>
                 </div>
-                <ul id="results"></ul>
-                <div class = "profill">
-                    <div class ="gambar"></div>
-                    <div class="name">
-                        <p>Novanda</p>
-                    </div>
+            </div>
+            <ul id="results"></ul> -->
+            <div class="profill">
+                <div class="gambar"></div>
+                <div class="name">
+                    <p>Novanda</p>
                 </div>
-                </div>
-        
-                <!-- Sidebar -->
-            <div class = "sidebar">
-            <div class = "profil"></div> 
-            <div class = "Textname">
+            </div>
+        </div>
+    
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="profil"></div>
+            <div class="Textname">
                 <h3>Admin</h3>
                 <h4>Novanda</h4>
-            </div>  
-            <div class = "menu">
+            </div>
+            <div class="menu">
                 <ul>
                     <li> <p><a href="index.html">Dasboard</a></p></li>
                     <li><p><a href="Daftar_Hotel.html">Daftar Hotel</a></p></li>
                     <li><p><a href="Daftar_Katalis.html">Daftar Katalis</a></p></li>
                     <li><p><a href="Laporan_Transaksi.html">History Transaksi</a></p></li>
                     <li><p><a href="Daftar_User.html">Daftar User</a></p></li>
-                    
                 </ul>
             </div>
-            <div class = "logout">
-                            <ul>
-                                <li> <p><a href="login_Admin.html">Logout</a></p></li>
-                            </ul>
-                        </div>  
+            <div class="logout">
+                <ul>
+                    <li> <p><a href="Profil.html">Logout</a></p></li>
+                </ul>
             </div>
+        </div>
     </nav>
 
         <!-- Content -->
@@ -86,7 +86,7 @@
         let imageView = document.getElementById('get-image-from-firebase-storage');
   
         firebase.storage().ref('WhatsApp Image 2023-12-09 at 20.32.55.jpeg').getDownloadURL().then( imgUrl => {
-            imageView.src = imgUrl;
+            // imageView.src = imgUrl;
         })
   
       </script>

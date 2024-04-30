@@ -64,7 +64,7 @@
       <div class="containe" style="margin-bottom: 10px;">
         <div class="row">
           <div class="col">
-            <h2>Daftar Katalis</h2>
+            <h2>Daftar Pesanan</h2>
           </div>
           <div class="col-auto">
           </div>
@@ -75,11 +75,7 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>gambar</th>
-                    <th>Id Customer</th>
-                    <th>Id Hotel</th>
-                    <th>Id Kurir</th>
-                    <th>Id Pesanan</th>
+                   
                     <th>List Daftar Katalis</th>
                     <th>Status Pesanan</th>
                     <th>Waktu Pesanan</th>
@@ -94,59 +90,68 @@
     </div> 
     
     <script>
-
       const firebaseConfig = {
-        apiKey: "AIzaSyCXZOpejbtVBD01z6n_E0cVqRsATq1xTws",
-        authDomain: "nofwa-indonesia.firebaseapp.com",
-        projectId: "nofwa-indonesia",
-        storageBucket: "nofwa-indonesia.appspot.com",
-        messagingSenderId: "608371446284",
-        appId: "1:608371446284:web:5c15b701371d2390599429",
-        measurementId: "G-WJSVLG5HW5"
+          apiKey: "AIzaSyCXZOpejbtVBD01z6n_E0cVqRsATq1xTws",
+          authDomain: "nofwa-indonesia.firebaseapp.com",
+          projectId: "nofwa-indonesia",
+          storageBucket: "nofwa-indonesia.appspot.com",
+          messagingSenderId: "608371446284",
+          appId: "1:608371446284:web:5c15b701371d2390599429",
+          measurementId: "G-WJSVLG5HW5"
       };
-
+  
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
-
-      db.collection("Pesanan").onSnapshot(snapshot =>{
-        snapshot.docChanges();
-        getData();
+      const db = firebase.firestore();
+  
+      db.collection("Pesanan").onSnapshot(snapshot => {
+          snapshot.docChanges();
+          getData();
       })
-      db.collection("katalis").onSnapshot(snapshot =>{
-        snapshot.docChanges();
-        getData();
-      })
-
+  
       async function getData() {
-        
-        document.getElementById('data').innerHTML = '';
-        const Admin = await db.collection("Pesanan").get();
-        const admin = await db.collection("katalis").get();
-        Admin.docs.forEach(async(kts, i) => {
-          console.log(kts.id);
-        //   const idHotel = kts.data().idHotel;
-        //   const harga = parseInt(kts.data().harga);
-        //   const hargaAdmin = parseInt(kts.data().hargaAdmin);
-        //   const imageUrl = await firebase.storage().ref(`Hotel_${idHotel}/${kts.data().katalisImageLink}`).getDownloadURL();
-          document.getElementById('data').innerHTML += `
-            <tr> 
-              <td>${i+1}</td>
-             <td></td>
-              <td>${kts.data().id_customer}</td>
-              <td>${kts.data().id_hotel}</td> 
-              <td>${kts.data().id_kurir}</td> 
-              <td>${kts.data().id_pesanan}</td>
-              <td>${kts.data().list_daftar_katalis}</td>
-              <td>${kts.data().status_pesanan}</td>
-              <td>${kts.data().waktu_pesanan_dibuat}</td>
-              <td>${kts.data().total_harga}</td>
-            </tr>
-          `;
-        });
-      }
+    document.getElementById('data').innerHTML = '';
 
-     
-    </script>
+    const AdminSnapshot = await db.collection("Pesanan").get();
+    for (let i = 0; i < AdminSnapshot.docs.length; i++) {
+        const kts = AdminSnapshot.docs[i];
+        let text = "";
+
+        const ListPesananKatalisSnapshot = await db.collection("List_Pesanan_Katalis").doc(kts.id).get();
+if (ListPesananKatalisSnapshot.exists) {
+    const DaftarKatalis = ListPesananKatalisSnapshot.data().DaftarKatalis;
+    // Lanjutkan pemrosesan data
+} else {
+     "katalis tidak ditemukan"
+}
+
+
+        for (const idKatalis in DaftarKatalis) {
+            const katalisSnapshot = await db.collection("Katalis").doc(idKatalis).get();
+            if (katalisSnapshot.exists) {
+                const katalisData = katalisSnapshot.data();
+                const katalisQuantity = DaftarKatalis[idKatalis];
+                text += `${idKatalis} : ${katalisData.namaKatalis} | ${katalisQuantity} | `;
+            } else {
+                text += `${idKatalis} : Katalis tidak ditemukan | `;
+            }
+        }
+
+        document.getElementById('data').innerHTML += `
+            <tr> 
+                <td>${i + 1}</td>
+                <td>${text}</td>
+                <td>${kts.data().status_pesanan}</td>
+                <td>${kts.data().waktu_pesanan_dibuat}</td>
+                <td>${kts.data().total_harga}</td>
+            </tr>
+        `;
+    }
+}
+
+
+  </script>
+  
   <script src="boostrap/js/bootstrap.js"></script>
   </body>
 </html>
