@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="deskripsi" name="html dasar">
         <title>Dasboard</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="Indexx.css">
         <link rel="stylesheet" href="boostrap/css/bootstrap.css">
         <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
@@ -13,9 +13,12 @@
     </head>
 <body class="body">
     <nav class="box">
+        <div class="box-navbar">
+            <div class="box-kotak"></div>
+        </div>
         <!-- Sidebar -->
         <div class="side_bar">
-            <div class="profil"></div>
+            <div class="profil-P"></div>
             <div class="Textname">
                 <h3>Admin</h3>
                 <h4>Novanda</h4>
@@ -43,23 +46,41 @@
                         </div>
                 </div>
            <div class="gambar_profil"></div>
-           <div class="input-grup">
-            <form>
-                <div class="input">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                <div class="input-grup">
+                    <form>
+                        <div class="inputt">
+                            <label for="name">Nick Name:</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                        </div>
+                        <div class="inputt">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                        </div>
+                        <div class="inputt">
+                            <label for="message">Alamat:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                        </div>
+                        <div class="inputt">
+                            <label for="message">Telpon:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="inputt">
+                            <label for="message">Tanggal Operasi:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                        </div>
+                        <div class="tombol">
+                            <div class="tomboll">
+                                    <div class="masuk">
+                                        <button type="submit" class="btn btn-success mr-2">Simpan Data</button>
+                                    </div>
+                                    <div class="masuk">
+                                        <button type="submit" class="btn btn-secondary">Kembali</button>
+                                    </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="input">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
-                </div>
-                <div class="input">
-                    <label for="message">Message:</label>
-                    <textarea class="form-control" id="message" rows="3" placeholder="Enter your message"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
         </div>
            
     </nav>
