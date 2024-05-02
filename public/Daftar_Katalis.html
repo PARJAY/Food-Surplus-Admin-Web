@@ -46,9 +46,7 @@
           <li> <p><a href="index.html">Dasboard</a></p></li>
           <li><p><a href="Daftar_Hotel.html">Daftar Hotel</a></p></li>
           <li><p><a href="Daftar_Katalis.html">Daftar Katalis</a></p></li>
-          <li><p><a href="Laporan_Transaksi.html">History Transaksi</a></p></li>
-          <li><p><a href="Daftar_User.html">Daftar User</a></p></li>
-          <li><p><a href="pesanan.html">Pesanan</a></p></li>
+          <li><p><a href="pesanan.html">Pesanan Seluruh Hotel</a></p></li>
           
       </ul>
   </div>
@@ -84,6 +82,7 @@
                     <th>Harga</th>
                     <th>Harga Admin</th>
                     <th>Gram Per Porsi</th>
+                    <th>Status Katalis</th>
                     <th>#</th>
                 </tr>
             </thead>
@@ -172,6 +171,7 @@ firebase.storage().ref('WhatsApp Image 2023-12-09 at 20.32.55.jpeg').getDownload
               <td>${kts.data().harga}</td>
               <td>${kts.data().hargaAdmin}</td>
               <td>${kts.data().gramPerPorsi}</td>
+              <td></td>
               <td class="button-container">
                 <button class="btn btn-warning editData mb-2" data-id="${kts.id}" data-bs-toggle="modal" data-bs-target="#modalUpdate">Edit</button>
               </td>
