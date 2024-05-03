@@ -85,6 +85,8 @@
                     <th>Status Pesanan</th>
                     <th>Waktu Pesanan</th>
                     <th>Kurir</th>
+                    <th>Bukti Sampai</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="data">
@@ -122,14 +124,16 @@
           const psn = pesanan.docs[i].data();
           
           const customer = await db.collection("Customer").doc(psn.id_customer).get();
-          const kurir = await db.collection("Kurir").doc(psn.id_kurir).get();
+          
+          let kurir
+          if (psn.id_kurir != "") kurir = await db.collection("Kurir").doc(psn.id_kurir).get();
 
           let rowData = 
             `
               <tr> 
                 <td>${i+1}</td>
                 <td>${customer.data().name}</td>
-                <td>${customer.data().transfer_proof_image_link}</td>
+                <td>${psn.transfer_proof_image_link}</td>
                 <td>${psn.alamatTujuan}</td>
                 <td>
             `;
@@ -144,7 +148,6 @@
             }
           }
                 
-          console.log("pass 1?")
           rowData += `</td> 
           <td>`;
           // Loop through daftarKatalis again to get the quantity
@@ -152,7 +155,6 @@
             if (psn.daftarKatalis.hasOwnProperty(key)) rowData += `${psn.daftarKatalis[key]}<br>`;
           }
 
-          console.log("pass 2?")
           rowData += `</td> 
           <td>`;
           for (const key in psn.daftarKatalis) {
@@ -163,12 +165,11 @@
             }
           }
 
-          console.log("pass 3?")
           rowData += `</td>
               <td>${psn.total_harga}</td>
               <td>${psn.status_pesanan}</td>
               <td>${psn.waktu_pesanan_dibuat.toDate()}</td>
-              <td>${kurir.data().name}</td>
+              <td>${kurir ? kurir.data().name : ''}</td>
             </tr>`;
           document.getElementById('data').innerHTML += rowData;
         }
