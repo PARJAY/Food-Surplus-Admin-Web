@@ -3,131 +3,297 @@
   padding: 0;
   background-color: #FFF9C9;
 }
-.side_bar {
+
+.navbar {
+  background-color: #5F939A;
+  color: #FFF9C9;
+  height: 100px;
+}
+
+.sidebar {
   position: fixed;
   top: 0px;
   left: 0;
-  height: 1000px;
-  width: 265px;
+  height: 100%;
+  width: 200px;
   background-color: #047242;
-  padding-top: 80px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 5;
 }
-.profil{
-  height: 150px;
-  width: 150px;
-  border-radius: 50%;
-  background-color: white;
-  margin-left: px;
- }
- .Textname h3{
-   color: #FFF9C9;
-   font-size: 24px;
-   
- }
- .Textname h4{
-   color: #FFF9C9;
-   font-size: 16px;
-   
- }
- .menu{
-   padding-top: 30px;
-  
- }
- .menu p{
-   font-family: serif;
-   margin-right: 11px;
-   font-size: 24px;
-   margin-top: 40px;
- }
- 
- .menu a{
-   text-decoration: none;
-   color: #FFF9C9;
- }
- .menu p :hover{
-   color: yellow;
- }
- 
- .menu ul{
-   list-style-type: none;
- }
 
- .logout ul{
-  list-style-type: none;
+.nama{
+  text-align: center;
 }
-.logout{
-  padding-top: 50px;
-}
-.logout p{
-  font-family: serif;
-  margin-right: 100px;
-  font-size: 24px;
-  margin-top: 40px;
 
-}
-.logout a{
-  text-decoration: none;
+.custom-star{
+  font-size: 35px;
   color: #FFF9C9;
 }
-.logout p :hover{
-  color: yellow;
-  
+
+.sidebar ul li a{
+  font-size: 23;
 }
-.box{
+
+.button-container {
   display: flex;
+  flex-direction: column;
 }
-.box_judul{
-  height: 76px;
-  width: 700px;
+
+.sidebar .circle {
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  overflow: hidden;
+  margin-top: 60px;
+}
+
+.sidebar .circle img {
+  object-fit: cover;
+}
+
+.sidebar a {
+  color: #FFF9C9;
+}
+
+.sidebar .nav-link {
+  margin-bottom: 27px;
+  font-size: 20px;
+  font-weight: 500;
+}
+  
+.content {
+  margin-top: 105px;
+  margin-left: 225px;
+  padding: 20px;
+}
+
+.containe .circle{
+  width: 70px;
+  height: 70px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.containe .circle img{
+  width: 70px;
+  height: 70px;
+}
+
+.containe .row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nyala{
+  background-color: red;
+}
+
+.nav-hover{
+  border-radius: 20px;
+  margin: 0 5px;
+}
+
+.nav-hover:hover {
+  background-color:#FFF9C9;
+}
+
+.logout-link {
+  color: #000000;
+  font-weight: bold;
+  margin: 0 5px;
+  border-radius: 20px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.logout-link:hover {
+  background-color: #ff0000; /* Ubah warna latar belakang saat hover */
+}
+
+.kotak {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background-color: #CDC899;
+  display: grid;
+  justify-content: center;
+}
+
+.kotak h2{
+  padding: 30px;
+}
+
+#tabelData th {
+  background-color: #000000; /* Warna latar belakang */
+  color: #ffffff; /* Warna teks */
+}
+
+.status-circle {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* Membuat lingkaran */
+  margin-right: 5px; /* Jarak antara lingkaran dan teks */
+}
+
+.status-cell {
+  text-align: center;
+  vertical-align: middle; /* Mengatur posisi vertikal ke tengah */
+}
+
+.status-mengirim::before {
+  background-color: #00ff00;
+}
+
+.status-mengagur::before {
+  background-color: #ff2600;
+}
+
+.status-off::before {
+  background-color: #636363;
+}
+
+/* Login */
+.login-form {
+  background-color: #FFF9C9;
+  border-radius: 15px;
+}
+
+.green-bg {
   background-color: #047242;
-  margin-left: 780px;
-  margin-top: 20px;
+  color: white;
+  padding: 25px;
+}
+
+.login-form form {
+  margin-bottom: 15px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.login-form h2 {
+  margin: 0 0 15px;
+  color: #333;
+}
+
+.form-control, .btn {
+  min-height: 38px;
+  border-radius: 2px;
+}
+
+.btn-custom {
+  background-color: #faf5f3;
+  color: #0087f5;
+  padding: 10px 20px; /* Sesuaikan dengan kebutuhan Anda */
+  border-radius: 15px;
+  border-color: transparent;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-search {
+  background-color: #FFF9C9;
+  color: #000000;
+  padding: 5px 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border-color: transparent;
+  font-size: 16px;
+  font-weight: normal;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-group{
+  margin-bottom: 10px;
+}
+
+.kotak-profile {
+  width: 720px;
+  height: 500px;
+  background-color: #CDC899;
+  display: flex;
   border-radius: 10px;
 }
-.judul{
-  padding-top: 10px;
- text-align: center;
- font-size: 32px;
- font-weight: bold;
- color: white;
+
+.kotak-profile h2{
+  padding: 30px;
 }
-.gambar_profil{
-  height: 200px;
-  width: 200px;
+
+.kotak-persetujuan {
+  width: max-content;
+  height: 500px;
+  background-color: #CDC899;
+  display: flex;
+  border-radius: 10px;
+}
+
+.content .circle {
+  width: 150px; /* Sudah disesuaikan dengan HTML */
+  height: 150px; /* Sudah disesuaikan dengan HTML */
+  background-color: #fff;
   border-radius: 50%;
-  background-color: rgb(138, 138, 138);
-  margin-left: px;
-  margin-left: 1050px;
-  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
-.input-grup{
-  padding-right: 400px;
-  margin-left: 600px;
+
+.content .circle img {
+  width: 100%; /* Memastikan gambar memenuhi lebar lingkaran */
+  height: 100%; /* Memastikan gambar memenuhi tinggi lingkaran */
+  object-fit: cover; /* Memastikan gambar memenuhi dan dipotong jika perlu */
 }
-.inputt{
-  
+
+.box {
+  color: #ffffff;
+  width: 50px;
 }
-.inputt label{
-  font-size: 24px;
-  margin-right: 10px;
+
+.profile .circle img{
+  width: 100%;
+  height: auto;
 }
-.inputt input{
-  height: 65px;
-  width: 1100px;
+.col {
+  flex: 0 0 auto;
 }
-.tomboll{
-  margin-top: 20px;
- display: flex;
-margin-left: 380px;
+
+.col-auto {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: flex-end; /* Meletakkan tombol di sebelah kanan */
 }
-.masuk{
-  margin-left: 10px;
+
+.tombol-tambah {
+  background-color: #4CAF50; /* Warna hijau */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 7px;
+  transition: background-color 0.3s;
 }
-button{
-  height: 60px;
-  width: 150px;
+
+.tombol-tambah:hover {
+  background-color: #45a049; /* Warna hijau yang lebih gelap saat dihover */
+}
+
+.icon {
+  margin-right: 5px;
 }
