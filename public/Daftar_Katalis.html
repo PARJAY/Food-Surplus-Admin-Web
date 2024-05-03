@@ -59,168 +59,156 @@
   </nav>
     
   <!-- Content -->
-    <div class="content">
-      <div class="containe" style="margin-bottom: 10px;">
+  <div class="content">
+    <div class="containe" style="margin-bottom: 10px;">
         <div class="row">
-          <div class="col">
-            <h2>Daftar Katalis</h2>
-          </div>
-          <div class="col-auto">
-          </div>
+            <div class="col">
+                <h2>Daftar Katalis</h2>
+            </div>
         </div>
-      </div>
-      <div class="table-responsive">
+    </div>
+    <div class="table-responsive">
         <table id="tabelData" class="table table-bordered table-hover" style="border: 2px solid #000000">
             <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Id Hotel</th>
-                    <th>Gambar</th>
-                    <th>Nama Katalis</th>
-                    <th>Stok</th>
-                    <th>Komposisi</th>
-                    <th>Harga</th>
-                    <th>Harga Admin</th>
-                    <th>Gram Per Porsi</th>
-                    <th>Status Katalis</th>
-                    <th>#</th>
-                </tr>
+            <tr>
+                <th>No</th>
+                <th>Id Hotel</th>
+                <th>Gambar</th>
+                <th>Nama Katalis</th>
+                <th>Stok</th>
+                <th>Komposisi</th>
+                <th>Harga</th>
+                <th>Harga Admin</th>
+                <th>Status Katalis</th>
+            </tr>
             </thead>
             <tbody id="data">
-                
+
             </tbody>
         </table>
     </div>
-    </div>
+  </div>
 
-  <!-- Edit modal -->
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Katalis</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <input type="hidden" id="id">
-              <form>
-                <!-- Harga Admin -->
-                <div class="form-group">
-                    <label>Harga Admin:</label>
-                    <input type="number" class="form-control" id="harga_admin" placeholder="Masukkan Harga Admin">
-                </div>
-                   <!-- Harga Admin -->
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="updateData">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>  
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCXZOpejbtVBD01z6n_E0cVqRsATq1xTws",
+      authDomain: "nofwa-indonesia.firebaseapp.com",
+      projectId: "nofwa-indonesia",
+      storageBucket: "nofwa-indonesia.appspot.com",
+      messagingSenderId: "608371446284",
+      appId: "1:608371446284:web:5c15b701371d2390599429",
+      measurementId: "G-WJSVLG5HW5"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+    const tabelKatalisData = document.getElementById('tabelData');
     
-    <script>
+    getData();
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyCXZOpejbtVBD01z6n_E0cVqRsATq1xTws",
-        authDomain: "nofwa-indonesia.firebaseapp.com",
-        projectId: "nofwa-indonesia",
-        storageBucket: "nofwa-indonesia.appspot.com",
-        messagingSenderId: "608371446284",
-        appId: "1:608371446284:web:5c15b701371d2390599429",
-        measurementId: "G-WJSVLG5HW5"
-      };
+    async function renderData(snapshot) {
+      const dataContainer = document.getElementById('data');
+      dataContainer.innerHTML = '';
 
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
+      let counter = 1;
+      snapshot.forEach(async doc => {
+          const kts = doc.data();
 
-      const db = firebase.firestore();
-        // firebase.initializeApp(firebaseConfig);
-      
-        let imageView = document.getElementById('get-image-from-firebase-storage');
+          console.log(`id : ${doc.id}`)
+          console.log(doc.data())
+          let statusClass = '';
+          let statusButton = '';
+          if (doc.data().statusKatalis === 'DISETUJUI') {
+              statusClass = 'table-success';
+              statusButton = 'DISETUJUI';
+          } else if (doc.data().statusKatalis === 'DITOLAK') {
+              statusClass = 'table-danger';
+              statusButton = 'DITOLAK';
+          } else {
+              statusButton = 'Menunggu';
+          }
 
-firebase.storage().ref('WhatsApp Image 2023-12-09 at 20.32.55.jpeg').getDownloadURL().then( imgUrl => {
-    // imageView.src = imgUrl;
-})
+          const namePromise = db.collection("Hotel").doc(kts.idHotel).get();
+          const [nameDoc] = await Promise.all([namePromise]);
+          const idHotel = kts.idHotel;
+          const hargaAwal = kts.hargaPerPorsi;
+          const hargaAdmin = hargaAwal * 0.1;
+          const hargaTotal = hargaAdmin + hargaAwal;
+          const imageRef = firebase.storage().ref(`Hotel_${idHotel}/${kts.img}`);
+          const image = await imageRef.getDownloadURL();
 
-      db.collection("Katalis").onSnapshot(snapshot =>{
-        snapshot.docChanges();
-        getData();
-      })
+          const name = nameDoc.data();
 
-      async function getData() {
-        
-        document.getElementById('data').innerHTML = '';
-        const Admin = await db.collection("Katalis").get();
-        Admin.docs.forEach(async (kts, i) => {
-          console.log(kts.id);
-          const idHotel = kts.data().idHotel;
-          const harga = parseInt(kts.data().harga);
-          const hargaAdmin = parseInt(kts.data().hargaAdmin);
-          const imageUrl = await firebase.storage().ref(`Hotel_${idHotel}/${kts.data().img}`).getDownloadURL();
-          document.getElementById('data').innerHTML += `
-            <tr> 
-              <td>${i+1}</td>
-              <td>12345</td> 
-             <td><img src="${imageUrl}" id="imagePreview_${i}" width="80" height="80"></td>
-              <td>${kts.data().namaKatalis}</td>
-              <td>${kts.data().stok}</td> 
-              <td>${kts.data().komposisi}</td> 
-              <td>${kts.data().harga}</td>
-              <td>${kts.data().hargaAdmin}</td>
-              <td>${kts.data().gramPerPorsi}</td>
-              <td></td>
-              <td class="button-container">
-                <button class="btn btn-warning editData mb-2" data-id="${kts.id}" data-bs-toggle="modal" data-bs-target="#modalUpdate">Edit</button>
-              </td>
-            </tr>
-          `;
+          let rowData = `
+          <tr class="katalis-data-id=${doc.id}"> 
+            <td class="counter">${counter++}</td>
+            <td class="name">${name ? name.name : ''}</td>
+            <td><img class="katalis-img" src="${image}" width="100" height="100" onchange="previewImage()"></td>
+            <td class="namaKatalis">${kts.namaKatalis}</td>
+            <td class="stok">${kts.stok}</td>
+            <td class="komposisi">${kts.komposisi}</td>
+            <td class="hargaAwal">${hargaAwal}</td>
+            <td class="hargaTotal">${hargaTotal}</td>
+            <td class="d-flex justify-content-around align-items-center status-katalis">
+              ${kts.statusKatalis}
+              <div class="d-grid justify-content-between">
+                <button class="btn btn-success mb-4" onclick="setuju('${doc.id}')">Setuju</button>
+                <button class="btn btn-warning" onclick="tidakSetuju('${doc.id}', this)">Tidak Setuju</button>
+              </div>
+            </td>
+          </tr>`;
+        dataContainer.innerHTML += rowData;
       });
-      }
+    }
 
-      document.getElementById('updateData').addEventListener('click', function(){
-        let harga_adminChecer;
-        if (isNaN(parseInt(document.getElementById('harga_admin').value))) harga_adminChecer = 0;
-        else harga_adminChecer = parseInt(document.getElementById('harga_admin').value);
+    function updateDataInTabelItem(element, snapshot) {
+        const statusKatalis = li.querySelector('status-katalis');
+        statusKatalis.innerHTML = snapshot.statusKatalis
+    }
 
+    function getData() {
+        db.collection("Katalis").orderBy("kadaluarsa").onSnapshot(snapshot => {
+            let changes = snapshot.docChanges();
 
-        db.collection("Katalis").doc(document.getElementById('id').value).update({
-          hargaAdmin: harga_adminChecer,
+            if(changes.type == 'added' ) renderData(snapshot);
+            else if (changes.type == 'removed' ) {
+                let changedTable = tabelKatalisData.querySelector('[katalis-data-id=' + change.doc.id + ']');
+                if (changedTable) tabelKatalisData.removeChild(changedTable);
+            }
+            else if (changes.type == 'modified' ) {
+                let changedTable = tabelKatalisData.querySelector('[katalis-data-id=' + change.doc.id + ']');
+                if (changedTable) updateDataInTabelItem(changedTabl, change.doc.data());
+            }
+            renderData(snapshot);
+        }, error => {
+            console.error("Error fetching data: ", error);
+        });
+    }
+    
+
+    function setuju(documentId) {
+        db.collection("Katalis").doc(documentId).update({
+            statusKatalis: "DISETUJUI"
         }).then(() => {
             console.log("Document successfully updated!");
-            var modal = document.getElementById('modalUpdate');
-            var modalInstance = bootstrap.Modal.getInstance(modal);
-            modalInstance.hide();
         }).catch((error) => {
             console.error("Error updating document: ", error);
         });
-      })
+    }
+    
+    function tidakSetuju(documentId) {
+        db.collection("Katalis").doc(documentId).update({
+            statusKatalis: "DITOLAK"
+        }).then(() => {
+            console.log("Document successfully updated!");
+        }).catch((error) => {
+            console.error("Error updating document: ", error);
+        });
+    }
 
-      document.getElementById('data').addEventListener('click', function(e) {
-        const id = e.target.dataset.id;
-        if (e.target.classList.contains('hapusData')) {
-          db.collection("Katalis").doc(id).delete().then(() => {
-              console.log("Document successfully deleted!");
-            }).catch((error) => {
-              console.error("Error removing document: ", error);
-            });
-          }
+  </script>
 
-        if (e.target.classList.contains('editData')) {
-            db.collection("Katalis").doc(id).get().then((doc) => {
-              if (doc.exists) {
-                console.log(doc.data());
-                document.getElementById('id').value = doc.id;
-                document.getElementById('harga_admin').value = parseInt(doc.data().hargaAdmin);
-              } else {
-                  console.log("No such document!");
-                }
-            });
-          }
-        })
-    </script>
   <script src="boostrap/js/bootstrap.js"></script>
   </body>
 </html>

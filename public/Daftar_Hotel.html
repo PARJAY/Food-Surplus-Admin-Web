@@ -117,10 +117,15 @@
         document.getElementById('Data').innerHTML += `
             <tr class="${statusClass}"> 
                 <td>${doc.data().name }</td> 
-                <td><p>${doc.data().name }</p>
-                    <p>${doc.data().email }</p>
-                    <p>${doc.data().docOperasionalHotelLink}<button class="btn btn-primary ms-3" onclick="downloadFileOperasionalHotel('Hotel_${doc.id}/${doc.data().docOperasionalHotelLink}')">Download</button></p>
-                    <p>${doc.data().docPernyataanBekerjaSamaLink}<button class="btn btn-primary ms-3" onclick="downloadFilePernyataanBekerjaSama()">Download</button></p> 
+                <td>
+                    <div class="d-flex justify-content-between mb-3">
+                        <p>Berkas Operasional Hotel : ${doc.data().docOperasionalHotelLink}</p>
+                        <button class="btn btn-primary ms-3" onclick="downloadFileOperasionalHotel('Hotel_${doc.id}/${doc.data().docOperasionalHotelLink}')">Download</button>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Berkas Pernyataan Bekerja Sama : ${doc.data().docPernyataanBekerjaSamaLink}</p> 
+                        <button class="btn btn-primary ms-3" onclick="downloadFilePernyataanBekerjaSama()">Download</button>
+                    </div>
                 </td> 
                 <td>
                     ${statusButton !== 'Menunggu' ? '' : `

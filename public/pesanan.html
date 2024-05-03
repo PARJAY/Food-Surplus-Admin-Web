@@ -86,7 +86,6 @@
                     <th>Waktu Pesanan</th>
                     <th>Kurir</th>
                     <th>Bukti Sampai</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="data">
@@ -122,18 +121,30 @@
         const pesanan = await db.collection('Pesanan').get();
         for (let i = 0; i < pesanan.docs.length; i++) {
           const psn = pesanan.docs[i].data();
-          
           const customer = await db.collection("Customer").doc(psn.id_customer).get();
           
+          
+          let imageTrasferUser
+          console.log(`User_${psn.id_customer}/${psn.transfer_proof_image_link}`)
+          imageTrasferUser = await firebase.storage().ref(`User_${psn.id_customer}/${psn.transfer_proof_image_link}`).getDownloadURL();
+
+          let imageBuktiSampai
+          if (psn.buktiSampaiKurirLink != "") {
+            console.log(`Kurir ${psn.id_kurir}/${psn.buktiSampaiKurirLink}`)
+            imageBuktiSampai = await firebase.storage().ref(`Kurir ${psn.id_kurir}/${psn.buktiSampaiKurirLink}`).getDownloadURL();
+          }
+
           let kurir
-          if (psn.id_kurir != "") kurir = await db.collection("Kurir").doc(psn.id_kurir).get();
+          if (psn.id_kurir != "") {
+            kurir = await db.collection("Kurir").doc(psn.id_kurir).get();
+          }
 
           let rowData = 
             `
               <tr> 
                 <td>${i+1}</td>
                 <td>${customer.data().name}</td>
-                <td>${psn.transfer_proof_image_link}</td>
+                <td><img src="${imageTrasferUser}" id="previewImage_update" width="100" height="100" onchange="previewImage()"></td>
                 <td>${psn.alamatTujuan}</td>
                 <td>
             `;
@@ -167,15 +178,42 @@
 
           rowData += `</td>
               <td>${psn.total_harga}</td>
-              <td>${psn.status_pesanan}</td>
+              <td class="d-flex justify-content-around align-items-center status-katalis">
+                ${psn.statusPesanan}
+                <div class="d-grid justify-content-between">
+                  <button class="btn btn-success mb-4" onclick="setuju('${pesanan.docs[i].id}')">Setuju</button>
+                  <button class="btn btn-warning" onclick="tidakSetuju('${pesanan.docs[i].id}', this)">Tidak Setuju</button>
+                </div>
+              </td>
               <td>${psn.waktu_pesanan_dibuat.toDate()}</td>
               <td>${kurir ? kurir.data().name : ''}</td>
+              <td><img src="${imageBuktiSampai}" id="previewImage_update" width="100" height="100" onchange="previewImage()"></td>
             </tr>`;
           document.getElementById('data').innerHTML += rowData;
         }
       } catch (error) {
       console.error("Terjadi kesalahan saat mengambil data:", error);
     }
+  }
+
+  function setuju(documentId) {
+    db.collection("Pesanan").doc(documentId).update({
+        statusPesanan: "TERKONFIRMASI_ADMIN "
+    }).then(() => {
+        console.log("Document successfully updated!");
+    }).catch((error) => {
+        console.error("Error updating document: ", error);
+    });
+  }
+
+  function tidakSetuju(documentId) {
+    db.collection("Pesanan").doc(documentId).update({
+        statusPesanan: "TIDAK_DISETUJUI_ADMIN "
+    }).then(() => {
+        console.log("Document successfully updated!");
+    }).catch((error) => {
+        console.error("Error updating document: ", error);
+    });
   }
   </script>
 
