@@ -129,14 +129,15 @@
           imageTrasferUser = await firebase.storage().ref(`User_${psn.id_customer}/${psn.transfer_proof_image_link}`).getDownloadURL();
 
           let imageBuktiSampai
-          if (psn.buktiSampaiKurirLink != "") {
-            console.log(`Kurir ${psn.id_kurir}/${psn.buktiSampaiKurirLink}`)
-            imageBuktiSampai = await firebase.storage().ref(`Kurir ${psn.id_kurir}/${psn.buktiSampaiKurirLink}`).getDownloadURL();
-          }
 
           let kurir
           if (psn.id_kurir != "") {
             kurir = await db.collection("Kurir").doc(psn.id_kurir).get();
+
+            if (psn.buktiSampaiKurirLink != "") {
+              console.log(`Kurir ${psn.id_kurir}/${psn.buktiSampaiKurirLink}`)
+              imageBuktiSampai = await firebase.storage().ref(`Kurir ${psn.id_kurir}/${psn.buktiSampaiKurirLink}`).getDownloadURL();
+            }
           }
 
           let rowData = 
@@ -180,7 +181,7 @@
               <td>${psn.total_harga}</td>
               <td class="d-flex justify-content-around align-items-center status-katalis">
                 ${psn.statusPesanan}
-                <div class="d-grid justify-content-between">
+                <div class="d-grid justify-content-between ms-3">
                   <button class="btn btn-success mb-4" onclick="setuju('${pesanan.docs[i].id}')">Setuju</button>
                   <button class="btn btn-warning" onclick="tidakSetuju('${pesanan.docs[i].id}', this)">Tidak Setuju</button>
                 </div>

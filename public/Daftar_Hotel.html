@@ -105,10 +105,10 @@
         console.log(`id : ${doc.id}`)
         let statusClass = '';
         let statusButton = '';
-        if (doc.data().status === 'TERVERIFIKASI') {
+        if (doc.data().statusHotel === 'TERVERIFIKASI') {
             statusClass = 'table-success';
             statusButton = 'TERVERIFIKASI';
-        } else if (doc.data().status === 'DITOLAK') {
+        } else if (doc.data().statusHotel === 'DITOLAK') {
             statusClass = 'table-danger';
             statusButton = 'DITOLAK';
         } else {
@@ -149,7 +149,7 @@
 
     function setujui(documentId) {
         db.collection("Hotel").doc(documentId).update({
-            status: "TERVERIFIKASI"
+            statusHotel: "TERVERIFIKASI"
         }).then(() => {
             console.log("Document successfully updated!");
         }).catch((error) => {
@@ -159,7 +159,7 @@
 
     function tidakSetujui(documentId) {
         db.collection("Hotel").doc(documentId).update({
-            status: "DITOLAK"
+            statusHotel: "DITOLAK"
         }).then(() => {
             console.log("Document successfully updated!");
         }).catch((error) => {
